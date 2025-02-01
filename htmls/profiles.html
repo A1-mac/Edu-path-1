@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - User Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3>WILD DOT</h3>
+        <ul>
+            <li>Dashboard</li>
+            <li>User Profile</li>
+            <li>Settings</li>
+            <li>Logout</li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/100" alt="Profile Picture">
+                    <div class="user-info">
+                        <h2><?php echo htmlspecialchars($user['name']); ?></h2>
+                        <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
+                        <p>Phone: <?php echo htmlspecialchars($user['phone']); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Notifications</h3>
+                <table class="notifications-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Accident</td>
+                            <td>27/07/2017</td>
+                            <td>Done</td>
+                            <td>Lorem ipsum dolor sit amet...</td>
+                        </tr>
+                        <tr>
+                            <td>Violence</td>
+                            <td>27/07/2017</td>
+                            <td>Pending</td>
+                            <td>Lorem ipsum dolor sit amet...</td>
+                        </tr>
+                        <tr>
+                            <td>Robbery</td>
+                            <td>27/07/2017</td>
+                            <td>Ongoing</td>
+                            <td>Lorem ipsum dolor sit amet...</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    <a href="#">&laquo; Prev</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">Next &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

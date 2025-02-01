@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>New User Education Form</title>
+</head>
+<body>
+    <div class="fdiv">
+        <form method="POST" action="">
+            <h2 class="head">Education Information</h2>
+            
+            <label for="education_level">Education Level:</label>
+            <select name="education_level" class="level" id="education_level" required>
+                <option value="Form 4">Select For</option>
+                <option value="Form 4">Form 4</option>
+                <option value="Form 6">Form 6</option>
+            </select>
+            <br><br>
+
+            <label for="division">Division (1-4):</label>
+            <input type="number" name="division" id="division" class="inputst1" min="1" max="4" required>
+            <br><br>
+
+            <h3>Prefered Combination</h3>
+
+            <label for="combination1">Subject 1 and Grade:</label>
+            <input type="text" placeholder="Subject"  name="combination1" class="inputst2" id="combination1" required>
+            <input type="text" placeholder="Grade (eg; A+, B, etc)"  name="grade1" class="inputst2" id="grade1" maxlength="2" required>
+            <br><br>
+            
+            <label for="combination2">Subject 2 and Grade:</label>
+            <input type="text" placeholder="Subject" name="combination2" class="inputst2" id="combination2" required>
+            <input type="text" name="grade2" placeholder="Grade (eg; A+, B, etc)"   class="inputst2" id="grade2" maxlength="2" required>
+            <br><br>
+            
+            <label for="combination3">Subject 3 and Grade:</label>
+            <input type="text" name="combination3" placeholder="Subject"  class="inputst2" id="combination3" required>
+            <input type="text" name="grade3" placeholder="Grade (eg; A+, B, etc)"   class="inputst2" id="grade3" maxlength="2" required>
+            <br><br>
+
+            <button type="submit" class="btn">Submit</button>
+            <button type="reset" class="btn btn-clear">Clear</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Reset Password</title>
+</head>
+<body>
+    <div class="fdiv">
+        <form method="POST" action="">
+            <H2 class="head">Reset Password</H2>
+            <h4 class="itali"> <i>Remember your password? <a href="login.html">Login</a> </i> </h4><br><br>
+            
+            <!-- Email Field for Reset Request -->
+            <input type="email" name="email" class="inputst" placeholder="Enter your email" required>
+            <?php displayError($emailError); ?><br><br>
+
+            <button type="submit" class="btn">Send Reset Link</button>
+            <button type="reset" class="btn btn-clear">Clear</button>
+        </form>
+    </div>
+    
+    <!-- Success Message Popup -->
+    <div class="popup <?php echo $resetSuccess ? 'show' : ''; ?>">
+        <div class="check-icon">✔</div>
+        <div class="message">Password Reset Link Sent!</div>
+        <a href="login.php"><button class="close-btn">Close</button></a>
+    </div>
+</body>
+</html>

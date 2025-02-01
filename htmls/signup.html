@@ -1,0 +1,48 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sign Up</title>
+</head>
+<body>
+    <div class="fdiv">
+        <form method="POST" action="" enctype="multipart/form-data">
+            <H2 class="head">Sign Up</H2>
+            <h4 class="itali"><i>Already have an account? <a href="login.html">Login here</a></i></h4><br><br>
+
+            <!-- Full Name -->
+            <input type="text" name="fullname" class="inputst" placeholder="Full Name" required><br><br>
+
+            <!-- Email -->
+            <input type="email" name="email" class="inputst" placeholder="Email" required><br><br>
+
+            <!-- Password -->
+            <input type="password" name="password" class="inputst" placeholder="Password" required><br><br>
+
+            <!-- Recheck Password -->
+            <input type="password" name="recheck_password" class="inputst" placeholder="Recheck Password" required><br><br>
+
+            <!-- Transcript Upload -->
+            <label for="transcript" class="inputst">Upload Transcript (PDF only):</label>
+            <input type="file" name="transcript" id="transcript" class="inputst" accept="application/pdf" required><br><br>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Sign Up</button>
+            <button type="reset" class="btn btn-clear">Clear</button>
+        </form>
+    </div>
+
+    <!-- Popup success message -->
+    <?php if (isset($signupSuccess) && $signupSuccess): ?>
+        <div class="popup show">
+            <div class="check-icon">✔</div>
+            <div class="message">Sign Up Successful!</div>
+            <a href="login.php"><button class="close-btn">Close</button></a>
+        </div>
+    <?php endif; ?>
+</body>
+</html>

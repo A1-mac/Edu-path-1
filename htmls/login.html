@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="fdiv">
+        <form method="POST" action="">
+            <H2 class="head">LOGIN</H2>
+            <h4 class="itali" > <i>Don't have an account ? <a href="signup.html">Create Account</a> </i> </h4><br><br>
+            <input type="email" name="email" class="inputst" placeholder="Email" required>
+            <?php displayError($emailError); ?><br> <br>
+            <input type="password" name="password" class="inputst" placeholder="Password" required>
+            <?php displayError($passwordError); ?> <br><br>
+            <h4 class="itali1" > <i>Forgot your password ? <a href="reset.html">Forget now</a> </i> </h4>
+            <button type="submit" class="btn">Login</button>
+            <button type="reset" class="btn btn-clear">Clear</button>
+        </form>
+    </div>
+    <div class="popup <?php echo $loginSuccess ? 'show' : ''; ?>">
+        <div class="check-icon">✔</div>
+        <div class="message">Successful Login!</div>
+        <a href="index.php"><button class="close-btn">Close</button></a>
+    </div>
+</body>
+</html>
+
+

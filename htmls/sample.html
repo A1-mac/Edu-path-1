@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header with Sidebar Navigation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .header .user-profile {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .header .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .user-dropdown.active {
+            display: flex;
+        }
+
+        .user-dropdown .info {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-dropdown .info h4 {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .user-dropdown .info p {
+            margin: 0;
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .user-dropdown a {
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            display: block;
+            text-align: left;
+        }
+
+        .user-dropdown a:hover {
+            background-color: #f5f5f5;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #4a90e2;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px 0;
+            color: #fff;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+
+        .sidebar ul li.active a {
+            background-color: #fff;
+            color: #4a90e2;
+            border-radius: 5px;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">WILD DOT</div>
+        <div class="user-profile" id="userProfile">
+            <span>Jannie Regel</span>
+            <img src="https://via.placeholder.com/40" alt="Profile Picture" />
+            <div class="user-dropdown" id="userDropdown">
+                <div class="info">
+                    <h4>Jannie Regel</h4>
+                    <p>jannie.regel@example.com</p>
+                </div>
+                <a href="profile.php">Manage Your Profile</a>
+                <a href="logout.php">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <ul>
+            <li class="active"><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="profile.php">User Profile</a></li>
+            <li><a href="settings.php">Settings</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome to WILD DOT</h1>
+        <p>Select a page from the sidebar to navigate.</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Dropdown logic
+            const userProfile = document.getElementById("userProfile");
+            const userDropdown = document.getElementById("userDropdown");
+
+            userProfile.addEventListener("click", () => {
+                userDropdown.classList.toggle("active");
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener("click", (event) => {
+                if (!userProfile.contains(event.target)) {
+                    userDropdown.classList.remove("active");
+                }
+            });
+
+            // Sidebar navigation logic
+            const sidebarLinks = document.querySelectorAll(".sidebar ul li a");
+            sidebarLinks.forEach(link => {
+                link.addEventListener("click", (event) => {
+                    sidebarLinks.forEach(link => link.parentElement.classList.remove("active"));
+                    event.target.parentElement.classList.add("active");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
