@@ -126,6 +126,7 @@ function getGradeDescription($grade) {
         <ul class="sidebar-menu">
         <li><a href="dash.php">Dashboard</a></li>
         <li class="active"><a href="home.php">User Profile</a></li>
+        <li><a href="credit.php">Accreditation</a></li>
         <li><a href="set.php">Settings</a></li>
     </ul>
     </div>

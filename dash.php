@@ -53,6 +53,7 @@ include 'navbar.php';
         <ul class="sidebar-menu">
         <li class="active"><a href="dash.php">Dashboard</a></li>
         <li><a href="home.php">User Profile</a></li>
+        <li><a href="credit.php">Accreditation</a></li>
         <li><a href="set.php">Settings</a></li>
     </ul>
     </div>
@@ -61,80 +62,93 @@ include 'navbar.php';
         <div class="container" style="display: block; margin-top: -290px; margin-left: -400px; position: absolute;">
             <div class="card">
             <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Database connection
 $conn = new mysqli('localhost', 'mac', 'pass', 'Edupath_db');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch user's academic results from the database
-$user_id = 1; // Assume user ID is 1, modify as needed
+// User ID (modify as needed)
+$user_id = $_SESSION['user_id'];
+
+// Fetch user's education level
+$sql_education = "SELECT education_level FROM user_education WHERE user_id = $user_id";
+$result_education = $conn->query($sql_education);
+$user_education_level = "";
+
+if ($result_education->num_rows > 0) {
+    $row = $result_education->fetch_assoc();
+    $user_education_level = strtolower(trim($row['education_level'])); // Convert to lowercase for comparison
+}
+
+// Fetch student's subject results
 $sql_results = "SELECT subject_name, grade FROM student_results WHERE user_id = $user_id";
 $result_set = $conn->query($sql_results);
 
 $pass_count = 0;
-$subject_results = [
-    'math' => false,
-    'english' => false,
-    'science' => false,
-    'trade_test' => false,
-    'nva' => false,
-];
-
-// Define the passing grade threshold (adjust as needed)
+$passed_subjects = [];
 $passing_grades = ['A', 'B', 'C'];
 
 if ($result_set->num_rows > 0) {
     while ($row = $result_set->fetch_assoc()) {
         if (in_array($row['grade'], $passing_grades)) {
             $pass_count++;
-        }
-        
-        if ($row['subject_name'] === 'Mathematics' && in_array($row['grade'], $passing_grades)) {
-            $subject_results['math'] = true;
-        }
-        if ($row['subject_name'] === 'English' && in_array($row['grade'], $passing_grades)) {
-            $subject_results['english'] = true;
-        }
-        if ($row['subject_name'] === 'Science' && in_array($row['grade'], $passing_grades)) {
-            $subject_results['science'] = true;
+            $passed_subjects[] = strtolower(trim($row['subject_name'])); // Store subjects in lowercase
         }
     }
 }
 
-// Echo total passes
-echo "$pass_count pass(es)";
 
 // Pagination setup
 $limit = 10;
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $limit;
 
-// Fetch courses and admission requirements
-$sql_courses = "SELECT c.program_name, u.name AS university_name, c.admission_requirements 
+// Fetch ALL courses that have data in total_pass, cetificate, and specialSubject
+// For total_pass, we check that it is not null or zero, and for cetificate and specialSubject, we ensure they are not empty.
+$sql_courses = "SELECT c.id, c.program_name, c.university_name, c.total_pass, c.cetificate, c.specialSubject
                 FROM courses c
-                INNER JOIN universities u ON c.university_name = u.name";
+                WHERE c.total_pass IS NOT NULL 
+                  AND c.total_pass > 0 
+                  AND c.cetificate <> '' 
+                  AND c.specialSubject <> ''";
 $result_courses = $conn->query($sql_courses);
 
 $eligible_courses = [];
 
 if ($result_courses->num_rows > 0) {
     while ($row = $result_courses->fetch_assoc()) {
-        $requirements = strtolower($row['admission_requirements']);
+        $required_passes = intval($row['total_pass']);
+        $required_certificate = strtolower(trim($row['cetificate']));
+        
+        // Convert specialSubject string to an array, removing square brackets if present
+        $special_subject_raw = trim(str_replace(['[', ']'], '', strtolower($row['specialSubject'])));
+        $subject_requirements = !empty($special_subject_raw) ? array_map('trim', explode(',', $special_subject_raw)) : [];
+        
         $eligible = true;
 
-        // Define requirement conditions
-        $conditions = [
-            "at least $pass_count passes" => ($pass_count >= intval($pass_count)),
-            "basic mathematics" => $subject_results['math'],
-            "english language" => $subject_results['english'],
-            "science subject" => $subject_results['science'],
-        ];
+        // Check total passes requirement
+        if ($pass_count < $required_passes) {
+            $eligible = false;
+        }
 
-        foreach ($conditions as $requirement => $is_met) {
-            if (strpos($requirements, $requirement) !== false && !$is_met) {
-                $eligible = false;
-                break;
+        // Check education level against required certificate
+        if (!empty($required_certificate) && $user_education_level !== $required_certificate) {
+            $eligible = false;
+        }
+
+        // If there are required subjects, ensure the student passed them.
+        // If specialSubject is empty, this check is skipped.
+        if (!empty($subject_requirements)) {
+            foreach ($subject_requirements as $subject) {
+                if (!in_array($subject, $passed_subjects)) {
+                    $eligible = false;
+                    break;
+                }
             }
         }
 
@@ -144,6 +158,7 @@ if ($result_courses->num_rows > 0) {
     }
 }
 
+// Count eligible courses and prepare pagination
 $total_courses = count($eligible_courses);
 $total_pages = ceil($total_courses / $limit);
 $paginated_courses = array_slice($eligible_courses, $offset, $limit);
@@ -171,7 +186,11 @@ if ($total_pages > 1) {
         echo "<a href='?page=" . ($current_page - 1) . "'>&laquo; Prev</a>";
     }
     for ($page = 1; $page <= $total_pages; $page++) {
-        echo $page == $current_page ? "<a href='?page=$page' class='active'>$page</a>" : "<a href='?page=$page'>$page</a>";
+        if ($page == $current_page) {
+            echo "<a href='?page=$page' class='active'>$page</a>";
+        } else {
+            echo "<a href='?page=$page'>$page</a>";
+        }
     }
     if ($current_page < $total_pages) {
         echo "<a href='?page=" . ($current_page + 1) . "'>Next &raquo;</a>";
