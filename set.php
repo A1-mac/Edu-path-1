@@ -125,7 +125,7 @@ $conn->close();
             <h3>Server Configuration</h3>
             <form class="settings-form">
                 <label for="portNumber">Port Number:</label>
-                <input type="number" id="portNumber" name="portNumber" placeholder="Enter server port" value="8080" />
+                <input type="number" id="portNumber" readonly name="portNumber" placeholder="Enter server port" value="8080" />
 
                 <label for="serverMode">Server Mode:</label>
                 <select id="serverMode" name="serverMode">
@@ -149,10 +149,10 @@ $conn->close();
             <h3>File Management</h3>
             <form class="settings-form">
                 <label for="uploadDir">Upload Directory:</label>
-                <input type="text" id="uploadDir" name="uploadDir" placeholder="Enter upload directory path" />
+                <input type="text" id="uploadDir" name="uploadDir" readonly placeholder="Enter upload directory path" />
 
                 <label for="maxUploadSize">Max Upload Size (MB):</label>
-                <input type="number" id="maxUploadSize" name="maxUploadSize" placeholder="Enter maximum upload size" value="10" />
+                <input type="number" id="maxUploadSize" name="maxUploadSize" readonly placeholder="Enter maximum upload size" value="10" />
 
                 <button type="submit">Save File Settings</button>
             </form>
@@ -178,7 +178,7 @@ $conn->close();
                 <button type="button" onclick="backupWebsite()">Backup Website</button>
 
                 <label for="restoreFile">Restore from Backup:</label>
-                <input type="file" id="restoreFile" name="restoreFile" accept=".zip,.tar" />
+                <input type="file" id="restoreFile" readonly name="restoreFile" accept=".zip,.tar" />
 
                 <button type="submit">Restore</button>
             </form>
