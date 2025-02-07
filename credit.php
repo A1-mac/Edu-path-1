@@ -157,7 +157,7 @@ $conn->close();
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($row['university_name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['best_courses']) . "</td>";
+                        echo "<td>" . htmlspecialchars(str_replace(['[', ']', '"'], '', $row['best_courses'])) . "</td>";
                         echo "</tr>";
                     }
                 } else {

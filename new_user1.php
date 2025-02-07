@@ -57,11 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         empty($combination3) || empty($grade3)) {
         $edu_errors[] = "All preferred combinations and grades are required.";
     }
-    $valid_grades = ['A', 'A+', 'B', 'B+', 'C', 'D', 'E', 'F'];
+    $valid_grades = ['A', 'B', 'C', 'D', 'E', 'F'];
     if (!in_array(strtoupper($grade1), $valid_grades) ||
         !in_array(strtoupper($grade2), $valid_grades) ||
         !in_array(strtoupper($grade3), $valid_grades)) {
-        $edu_errors[] = "Invalid grade(s) for preferred combinations. Allowed: A, A+, B, B+, C, D, E, F.";
+        $edu_errors[] = "Invalid grade(s) for preferred combinations. Allowed: A, B, C, D, E, F.";
     }
 
     // ---------- Process Student Results ----------
@@ -312,7 +312,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       var subjectFieldsDiv = document.getElementById('subjectFields');
       var subjects = [];
       if (track === 'Arts') {
-        subjects = ["History", "Geography", "Literature", "Economics", "Civic Education", "Religious Studies", "Fine Arts", "Music"];
+        subjects = ["History", "Geography", "Literature", "Economics", "Civic Education", "Religious Studies", "Fine Arts", "Kiswahili"];
       } else if (track === 'Science') {
         subjects = ["Physics", "Chemistry", "Biology", "Mathematics", "Geography", "English", "ICT", "Technical Drawing"];
       } else if (track === 'Business') {

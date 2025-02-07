@@ -63,6 +63,29 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 
+// Fetch student results from student_results table
+$query = "SELECT subject_name, grade FROM student_results WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$results_table_rows = '';
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $results_table_rows .= "
+            <tr>
+                <td>" . htmlspecialchars($row['subject_name']) . "</td>
+                <td>" . htmlspecialchars($row['grade']) . "</td>
+                <td>" . getGradeDescription($row['grade']) . "</td>
+            </tr>";
+    }
+} else {
+    $results_table_rows = "<tr><td colspan='3'>No results found.</td></tr>";
+}
+
+$stmt->close();
+
 // Close the database connection
 $conn->close();
 
@@ -77,8 +100,8 @@ function getGradeDescription($grade) {
         default: return 'Unknown';
     }
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -130,9 +153,16 @@ function getGradeDescription($grade) {
         <li><a href="set.php">Settings</a></li>
     </ul>
     </div>
-
+    
+    
     <div class="main-content">
-        <div class="container" style="margin-top: 140px;">
+        <div class="container" style="<?php
+                    if (isset($_GET['view']) && $_GET['view'] == 'results') {
+                        echo 'margin-top: 380px;';
+                    } else {
+                        echo 'margin-top: 190px;';
+                    }
+                    ?>">
             <div class="card">
             <div class="user-profile">
     <div class="profile-picture" 
@@ -217,7 +247,15 @@ function getGradeDescription($grade) {
                     <!-- Display Division and Education Level -->
                 <p><strong>Division:</strong> <?php echo $division ? "Division $division" : 'N/A'; ?></p>
                 <p><strong>Education Level:</strong> <?php echo $education_level ? $education_level : 'N/A'; ?></p>
-
+                <p><strong>Currently Viewing:</strong>
+                <?php
+                    if (isset($_GET['view']) && $_GET['view'] == 'results') {
+                        echo htmlspecialchars($user['name']).'\'s Results';
+                    } else {
+                        echo htmlspecialchars($user['name']).'\'s Combination';
+                    }
+                    ?>
+                </p>
 
                 <table class="notifications-table">
                     <thead>
@@ -228,17 +266,20 @@ function getGradeDescription($grade) {
                         </tr>
                     </thead>
                     <tbody>
-                    <?php echo $table_rows; ?>
-                    </tbody>
-                </table>
-
-                <div class="pagination">
-                    <a href="#">&laquo; Prev</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">Next &raquo;</a>
-                </div>
+                    <?php
+                    if (isset($_GET['view']) && $_GET['view'] == 'results') {
+                        echo $results_table_rows;
+                    } else {
+                        echo $table_rows;
+                    }
+                    ?>
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                <a href="?view=combination">Combination</a>
+                <a href="?view=results">Results</a>
+            </div>
             </div>
         </div>
     </div>
