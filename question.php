@@ -12,7 +12,7 @@ session_start();
 
 if (!isset($_SESSION['user_id'])) {
     // If the user is not logged in, redirect to the login page
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmtUpdate->bind_param("ssi", $question, $hashedAnswer, $user_id);
                     if ($stmtUpdate->execute()) {
                         $successMessage = "Security question updated successfully.";
-                        header("Location: new_user.php"); // Redirect to new_user.php
+                        header("Location: necta.php"); // Redirect to necta.php
                         exit();
                     } else {
                         echo "Error: " . $stmtUpdate->error;
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmtInsert->bind_param("iss", $user_id, $question, $hashedAnswer);
                     if ($stmtInsert->execute()) {
                         $successMessage = "Security question set successfully.";
-                        header("Location: new_user1.php"); // Redirect to new_user.php
+                        header("Location: necta.php"); // Redirect to new_user.php
                         exit();
                     } else {
                         echo "Error: " . $stmtInsert->error;

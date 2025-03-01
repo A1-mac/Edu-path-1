@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -20,9 +20,10 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
 $user_id = $_SESSION['user_id']; // Replace with dynamic user ID if needed
-$query = "SELECT education_level, division, preferred_combination_1, grade1, 
-                 preferred_combination_2, grade2, preferred_combination_3, grade3 
-          FROM user_education 
+
+$query = "
+          SELECT exam_type, gender, division,points
+          FROM student_results
           WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
@@ -32,52 +33,76 @@ $result = $stmt->get_result();
 // Initialize variables
 $education_level = '';
 $division = '';
-$table_rows = '';
+$gender = '';
+$points = '';
 
 // Process the result
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    $education_level = htmlspecialchars($row['education_level']);
-    $division = htmlspecialchars($row['division']);
-
-    // Populate table rows
-    $table_rows .= "
-        <tr>
-            <td>" . htmlspecialchars($row['preferred_combination_1']) . "</td>
-            <td>" . htmlspecialchars($row['grade1']) . "</td>
-            <td>" . getGradeDescription($row['grade1']) . "</td>
-        </tr>
-        <tr>
-            <td>" . htmlspecialchars($row['preferred_combination_2']) . "</td>
-            <td>" . htmlspecialchars($row['grade2']) . "</td>
-            <td>" . getGradeDescription($row['grade2']) . "</td>
-        </tr>
-        <tr>
-            <td>" . htmlspecialchars($row['preferred_combination_3']) . "</td>
-            <td>" . htmlspecialchars($row['grade3']) . "</td>
-            <td>" . getGradeDescription($row['grade3']) . "</td>
-        </tr>";
-} else {
-    $table_rows = "<tr><td colspan='3'>No results found.</td></tr>";
+    $education_level = htmlspecialchars($row['exam_type']);
+    $division = htmlspecialchars($row['division']); 
+    $gender = htmlspecialchars($row['gender']); 
+    $points = htmlspecialchars($row['points']); 
 }
 
 $stmt->close();
 
 // Fetch student results from student_results table
-$query = "SELECT subject_name, grade FROM student_results WHERE user_id = ?";
+$query = "
+SELECT ss.subject_name, ss.score
+FROM student_subjects ss
+INNER JOIN student_results s ON ss.student_id = s.id 
+WHERE s.user_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $results_table_rows = '';
+
+$subject_names = [
+    "GEO" => "Geography",
+    "CHEM" => "Chemistry",
+    "ENGL" => "English",
+    "ENG SC" => "English Science",
+    "B/MATH" => "Basic Mathematics",
+    "PHY" => "Physics",
+    "BIO" => "Biology",
+    "HIST" => "History",
+    "KISW" => "Kiswahili",
+    "COMM" => "Commerce",
+    "BOOK" => "Bookkeeping",
+    "CIV" => "Civics",
+    "COMP" => "Computer Science",
+    "LIT ENG" => "Literature in English",
+    "FRENCH" => "French",
+    "ARABIC" => "Arabic",
+    "BAM" => "Basic Applied Mathematics",
+    "G/STUDIES" => "General Studies",
+    "HISTORY" => "History",
+    "GEOGR" => "Geography",
+    "COMP STUD" => "Computer Studies",
+];
+
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        // Get the subject code and map it to the full subject name
+        $subject_code = trim($row['subject_name']); // Clean subject name code
+        if (array_key_exists($subject_code, $subject_names)) {
+            // If the subject code is found in the mapping
+            $subject_name = $subject_names[$subject_code];
+        } else {
+            // If the subject code is not found, use "Unknown Subject"
+            $subject_name = "Unknown Subject ($subject_code)";
+        }
+
+        // Append the row to the table with the full subject name
         $results_table_rows .= "
             <tr>
-                <td>" . htmlspecialchars($row['subject_name']) . "</td>
-                <td>" . htmlspecialchars($row['grade']) . "</td>
-                <td>" . getGradeDescription($row['grade']) . "</td>
+                <td>" . htmlspecialchars($subject_name) . "</td>
+                <td>" . htmlspecialchars($row['score']) . "</td>
+                <td>" . getGradeDescription($row['score']) . "</td>
             </tr>";
     }
 } else {
@@ -158,9 +183,9 @@ function getGradeDescription($grade) {
     <div class="main-content">
         <div class="container" style="<?php
                     if (isset($_GET['view']) && $_GET['view'] == 'results') {
-                        echo 'margin-top: 380px;';
+                        echo 'margin-top: 480px;';
                     } else {
-                        echo 'margin-top: 190px;';
+                        echo 'margin-top: 490px;';
                     }
                     ?>">
             <div class="card">
@@ -242,20 +267,13 @@ function getGradeDescription($grade) {
             </div>
 
             <div class="card appearance-settings">
-                <h3>Preferred Combination and their results</h3>
+                <h3>Students Results</h3>
 
                     <!-- Display Division and Education Level -->
                 <p><strong>Division:</strong> <?php echo $division ? "Division $division" : 'N/A'; ?></p>
+                <p><strong>Points:</strong> <?php echo $points ? $points : 'N/A'; ?>  </p>
                 <p><strong>Education Level:</strong> <?php echo $education_level ? $education_level : 'N/A'; ?></p>
-                <p><strong>Currently Viewing:</strong>
-                <?php
-                    if (isset($_GET['view']) && $_GET['view'] == 'results') {
-                        echo htmlspecialchars($user['name']).'\'s Results';
-                    } else {
-                        echo htmlspecialchars($user['name']).'\'s Combination';
-                    }
-                    ?>
-                </p>
+                
 
                 <table class="notifications-table">
                     <thead>
@@ -266,20 +284,11 @@ function getGradeDescription($grade) {
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    if (isset($_GET['view']) && $_GET['view'] == 'results') {
-                        echo $results_table_rows;
-                    } else {
-                        echo $table_rows;
-                    }
-                    ?>
+                    <?php echo $results_table_rows; ?>
                 </tbody>
             </table>
             
-            <div class="pagination">
-                <a href="?view=combination">Combination</a>
-                <a href="?view=results">Results</a>
-            </div>
+
             </div>
         </div>
     </div>

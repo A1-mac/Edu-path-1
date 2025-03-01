@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search with Filters & Price Range</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .search-box-container {
+            position: relative;
+            width: 640px;
+            text-align: center;
+        }
+
+        .search-box {
+            height: 54px;
+            display: flex;
+            align-items: center;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .search-field {
+            width: 100%;
+            border: none;
+            background: none;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px;
+            outline: none;
+        }
+
+        .search-field::placeholder {
+            color: #aaa;
+        }
+
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #555;
+        }
+
+        .filter-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #444;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-button:hover {
+            background-color: #666;
+        }
+
+        .filter-container {
+            display: none;
+            margin-top: 10px;
+            background-color: #222;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+
+        .filter-container label {
+            display: block;
+            margin: 8px 0;
+            font-weight: bold;
+        }
+
+        .filter-container select, .filter-container input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Price Range Slider */
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .price-range input {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 45%;
+            height: 5px;
+            background: #444;
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+
+        .price-range input:hover {
+            background: #666;
+        }
+
+        .price-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        /* Floating Filter Tags */
+        .filter-tags {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            background-color: #333;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .filter-tag:hover {
+            background-color: #555;
+        }
+
+        .filter-tag .remove-tag {
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            padding: 3px 7px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .filter-tag .remove-tag:hover {
+            background-color: #ff1a1a;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="search-box-container">
+        <div class="search-box">
+            <input type="text" class="search-field" placeholder="Search For Course..." />
+            <div class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="44">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <button class="filter-button" onclick="toggleFilter()">Filters</button>
+
+        <div class="filter-container" id="filter-container">
+            <label for="category">Category:</label>
+            <select id="category" onchange="addFilter('Category', this.value)">
+                <option value="">Select</option>
+                <option value="students">Students</option>
+                <option value="schools">Schools</option>
+            </select>
+
+            <label for="location">Location:</label>
+            <select id="location" onchange="addFilter('Location', this.value)">
+                <option value="">Select</option>
+                <option value="dar">Dar es Salaam</option>
+                <option value="arusha">Arusha</option>
+                <option value="mwanza">Mwanza</option>
+            </select>
+        </div>
+
+            <label for="price">Price Range:</label>
+            <div class="price-range">
+                <input type="range" id="min-price" min="0" max="1000" value="100" oninput="updatePrice()">
+                <input type="range" id="max-price" min="0" max="1000" value="900" oninput="updatePrice()">
+            </div>
+            <div class="price-values">
+                <span id="min-price-value">$100</span>
+                <span id="max-price-value">$900</span>
+            </div>
+        </div>
+
+        <div class="filter-tags" id="filter-tags"></div>
+    </div>
+
+    <script>
+        function toggleFilter() {
+            const filterContainer = document.getElementById('filter-container');
+            filterContainer.style.display = filterContainer.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function addFilter(type, value) {
+            if (!value) return;
+
+            const filterTags = document.getElementById('filter-tags');
+            const tag = document.createElement('div');
+            tag.classList.add('filter-tag');
+            tag.innerHTML = `${type}: ${value} <span class="remove-tag" onclick="this.parentElement.remove()">X</span>`;
+            filterTags.appendChild(tag);
+        }
+
+        function updatePrice() {
+            const minPrice = document.getElementById('min-price').value;
+            const maxPrice = document.getElementById('max-price').value;
+            document.getElementById('min-price-value').innerText = `$${minPrice}`;
+            document.getElementById('max-price-value').innerText = `$${maxPrice}`;
+
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                if (tag.innerText.includes('Price')) tag.remove();
+            });
+
+            addFilter('Price', `$${minPrice} - $${maxPrice}`);
+        }
+    </script>
+
+</body>
+</html>

@@ -1,14 +1,13 @@
 <?php
-// Start the session
+
 session_start();
 
-// Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
-// Fetch user details from the database (Replace with actual database query)
+
 include('conn.php');
 $user_id = $_SESSION['user_id'];
 
@@ -32,7 +31,6 @@ $hasCourses = $row['total'] > 0;
 
 
 
-// Close the database connection
 $conn->close();
 ?>
 
@@ -59,7 +57,7 @@ include 'navbar.php';
     </div>
 
     <div class="main-content">
-        <div class="container" style="display: block; margin-top: -290px; margin-left: -400px; position: absolute;">
+        <div class="container" style="display: block; margin-top: -250px; margin-left: -400px; position: absolute;">
             <div class="card">
             <?php
 if (session_status() === PHP_SESSION_NONE) {
@@ -76,18 +74,47 @@ if ($conn->connect_error) {
 $user_id = $_SESSION['user_id'];
 
 // Fetch user's education level
-$sql_education = "SELECT education_level FROM user_education WHERE user_id = $user_id";
+$sql_education = "SELECT exam_type FROM student_results WHERE user_id = $user_id";
 $result_education = $conn->query($sql_education);
 $user_education_level = "";
 
 if ($result_education->num_rows > 0) {
     $row = $result_education->fetch_assoc();
-    $user_education_level = strtolower(trim($row['education_level'])); // Convert to lowercase for comparison
+    $user_education_level = strtolower(trim($row['exam_type'])); // Convert to lowercase for comparison
 }
 
 // Fetch student's subject results
-$sql_results = "SELECT subject_name, grade FROM student_results WHERE user_id = $user_id";
+$sql_results = "
+    SELECT ss.subject_name, ss.score
+    FROM student_subjects ss
+    INNER JOIN student_results s ON ss.student_id = s.id
+    WHERE s.user_id = $user_id
+";
 $result_set = $conn->query($sql_results);
+
+$subject_names = [
+    "GEO" => "Geography",
+    "CHEM" => "Chemistry",
+    "ENGL" => "English",
+    "ENG SC" => "English Science",
+    "B/MATH" => "Mathematics",
+    "PHY" => "Physics",
+    "BIO" => "Biology",
+    "HIST" => "History",
+    "KISW" => "Kiswahili",
+    "COMM" => "Commerce",
+    "BOOK" => "Bookkeeping",
+    "CIV" => "Civics",
+    "COMP" => "Computer Science",
+    "LIT ENG" => "Literature in English",
+    "FRENCH" => "French",
+    "ARABIC" => "Arabic",
+    "BAM" => "Basic Applied Mathematics",
+    "G/STUDIES" => "General Studies",
+    "HISTORY" => "History",
+    "GEOGR" => "Geography",
+    "COMP STUD" => "Computer Studies",
+];
 
 $pass_count = 0;
 $passed_subjects = [];
@@ -95,12 +122,23 @@ $passing_grades = ['A', 'B', 'C'];
 
 if ($result_set->num_rows > 0) {
     while ($row = $result_set->fetch_assoc()) {
-        if (in_array($row['grade'], $passing_grades)) {
+        // Check if the grade is passing
+        if (in_array($row['score'], $passing_grades)) {
             $pass_count++;
-            $passed_subjects[] = strtolower(trim($row['subject_name'])); // Store subjects in lowercase
+
+            // Get the full subject name from the array
+            $subject_code = trim($row['subject_name']); // Convert to uppercase for matching
+            if (array_key_exists($subject_code, $subject_names)) {
+                $full_subject_name = $subject_names[$subject_code];
+                $passed_subjects[] = $full_subject_name; // Add the full subject name to the list
+            } else {
+                // In case the subject code is not found in the mapping
+                $passed_subjects[] = "Unknown Subject ($subject_code)";
+            }
         }
     }
 }
+
 
 
 // Pagination setup
@@ -126,7 +164,7 @@ if ($result_courses->num_rows > 0) {
         $required_certificate = strtolower(trim($row['cetificate']));
         
         // Convert specialSubject string to an array, removing square brackets if present
-        $special_subject_raw = trim(str_replace(['[', ']'], '', strtolower($row['specialSubject'])));
+        $special_subject_raw = trim(str_replace(['[', ']'], '',($row['specialSubject'])));
         $subject_requirements = !empty($special_subject_raw) ? array_map('trim', explode(',', $special_subject_raw)) : [];
         
         $eligible = true;
@@ -143,10 +181,10 @@ if ($result_courses->num_rows > 0) {
 
         // If there are required subjects, ensure the student passed them.
         // If specialSubject is empty, this check is skipped.
-        if (!empty($subject_requirements)) {
+        if (!empty($subject_requirements)) {// Assume eligible by default
             foreach ($subject_requirements as $subject) {
                 if (!in_array($subject, $passed_subjects)) {
-                    $eligible = false;
+                    $eligible = false; // If even one subject is missing, mark as ineligible
                     break;
                 }
             }
@@ -160,6 +198,8 @@ if ($result_courses->num_rows > 0) {
 
 // Count eligible courses and prepare pagination
 $total_courses = count($eligible_courses);
+$pass_var = htmlspecialchars(implode(", ", $passed_subjects));
+$importan = htmlspecialchars(implode(", ", $subject_requirements));
 $total_pages = ceil($total_courses / $limit);
 $paginated_courses = array_slice($eligible_courses, $offset, $limit);
 
@@ -170,8 +210,11 @@ if (!empty($paginated_courses)) {
     echo "<thead><tr><th>Program Name</th><th>University</th></tr></thead><tbody>";
     
     foreach ($paginated_courses as $course) {
-        echo "<tr><td>" . htmlspecialchars($course['program_name']) . "</td>";
-        echo "<td>" . htmlspecialchars($course['university_name']) . "</td></tr>";
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($course['program_name']) . "</td>";
+        echo "<td>" . htmlspecialchars($course['university_name']) . "</td>";
+        // echo "<td>" . htmlspecialchars($course['specialSubject']) . "</td>"; 
+        echo "</tr>";
     }
     
     echo "</tbody></table>";
