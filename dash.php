@@ -60,191 +60,126 @@ include 'navbar.php';
         <div class="container" style="display: block; margin-top: -250px; margin-left: -400px; position: absolute;">
             <div class="card">
             <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Database connection
-$conn = new mysqli('localhost', 'mac', 'pass', 'Edupath_db');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// User ID (modify as needed)
-$user_id = $_SESSION['user_id'];
-
-// Fetch user's education level
-$sql_education = "SELECT exam_type FROM student_results WHERE user_id = $user_id";
-$result_education = $conn->query($sql_education);
-$user_education_level = "";
-
-if ($result_education->num_rows > 0) {
-    $row = $result_education->fetch_assoc();
-    $user_education_level = strtolower(trim($row['exam_type'])); // Convert to lowercase for comparison
-}
-
-// Fetch student's subject results
-$sql_results = "
-    SELECT ss.subject_name, ss.score
-    FROM student_subjects ss
-    INNER JOIN student_results s ON ss.student_id = s.id
-    WHERE s.user_id = $user_id
-";
-$result_set = $conn->query($sql_results);
-
-$subject_names = [
-    "GEO" => "Geography",
-    "CHEM" => "Chemistry",
-    "ENGL" => "English",
-    "ENG SC" => "English Science",
-    "B/MATH" => "Mathematics",
-    "PHY" => "Physics",
-    "BIO" => "Biology",
-    "HIST" => "History",
-    "KISW" => "Kiswahili",
-    "COMM" => "Commerce",
-    "BOOK" => "Bookkeeping",
-    "CIV" => "Civics",
-    "COMP" => "Computer Science",
-    "LIT ENG" => "Literature in English",
-    "FRENCH" => "French",
-    "ARABIC" => "Arabic",
-    "BAM" => "Basic Applied Mathematics",
-    "G/STUDIES" => "General Studies",
-    "HISTORY" => "History",
-    "GEOGR" => "Geography",
-    "COMP STUD" => "Computer Studies",
-];
-
-$pass_count = 0;
-$passed_subjects = [];
-$passing_grades = ['A', 'B', 'C'];
-
-if ($result_set->num_rows > 0) {
-    while ($row = $result_set->fetch_assoc()) {
-        // Check if the grade is passing
-        if (in_array($row['score'], $passing_grades)) {
-            $pass_count++;
-
-            // Get the full subject name from the array
-            $subject_code = trim($row['subject_name']); // Convert to uppercase for matching
-            if (array_key_exists($subject_code, $subject_names)) {
-                $full_subject_name = $subject_names[$subject_code];
-                $passed_subjects[] = $full_subject_name; // Add the full subject name to the list
-            } else {
-                // In case the subject code is not found in the mapping
-                $passed_subjects[] = "Unknown Subject ($subject_code)";
+            include('conn.php');
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
             }
-        }
-    }
-}
 
+            if (!isset($_SESSION['user_id'])) {
+                header("Location: index.php");
+                exit();
+            }
 
+            $user_id = $_SESSION['user_id'];
 
-// Pagination setup
-$limit = 10;
-$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$offset = ($current_page - 1) * $limit;
+            // Fetch the latest search filters from search_history
+            $sql_history = "SELECT location, min_price, max_price FROM search_history WHERE user_id = ? ORDER BY id DESC LIMIT 1";
+            $stmt = $conn->prepare($sql_history);
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+            $result_history = $stmt->get_result();
+            $history = $result_history->fetch_assoc();
+            $stmt->close();
 
-// Fetch ALL courses that have data in total_pass, cetificate, and specialSubject
-// For total_pass, we check that it is not null or zero, and for cetificate and specialSubject, we ensure they are not empty.
-$sql_courses = "SELECT c.id, c.program_name, c.university_name, c.total_pass, c.cetificate, c.specialSubject
+            // Assign filter values
+            $location = $history['location'] ?? "";
+            $min_price = $history['min_price'] ?? 0;
+            $max_price = $history['max_price'] ?? 0;
+
+            // Fetch courses dynamically based on search filters
+            $sql_courses = "
+                SELECT c.id, c.program_name, c.university_name, c.admission_capacity, c.total_pass, c.cetificate, 
+                    c.specialSubject, u.head_office,
+                    (
+                            CAST(
+                                REPLACE(
+                                    TRIM(BOTH ' /= ' FROM SUBSTRING_INDEX(SUBSTRING_INDEX(c.tuition_fees, 'Local Fee: TSH. ', -1), '/=', 1)),
+                                    ',', ''
+                                ) AS UNSIGNED
+                            )
+                    ) AS extracted_fee
                 FROM courses c
+                INNER JOIN universities u ON c.university_name = u.name
                 WHERE c.total_pass IS NOT NULL 
-                  AND c.total_pass > 0 
-                  AND c.cetificate <> '' 
-                  AND c.specialSubject <> ''";
-$result_courses = $conn->query($sql_courses);
+                AND c.total_pass > 0 
+                AND c.cetificate <> '' 
+                AND c.specialSubject <> ''
+                AND (
+                        CAST(
+                            REPLACE(
+                                TRIM(BOTH ' /= ' FROM SUBSTRING_INDEX(SUBSTRING_INDEX(c.tuition_fees, 'Local Fee: TSH. ', -1), '/=', 1)),
+                                ',', ''
+                            ) AS UNSIGNED
+                        ) BETWEEN ? AND ?
+                    )
+            ";
 
-$eligible_courses = [];
-
-if ($result_courses->num_rows > 0) {
-    while ($row = $result_courses->fetch_assoc()) {
-        $required_passes = intval($row['total_pass']);
-        $required_certificate = strtolower(trim($row['cetificate']));
-        
-        // Convert specialSubject string to an array, removing square brackets if present
-        $special_subject_raw = trim(str_replace(['[', ']'], '',($row['specialSubject'])));
-        $subject_requirements = !empty($special_subject_raw) ? array_map('trim', explode(',', $special_subject_raw)) : [];
-        
-        $eligible = true;
-
-        // Check total passes requirement
-        if ($pass_count < $required_passes) {
-            $eligible = false;
-        }
-
-        // Check education level against required certificate
-        if (!empty($required_certificate) && $user_education_level !== $required_certificate) {
-            $eligible = false;
-        }
-
-        // If there are required subjects, ensure the student passed them.
-        // If specialSubject is empty, this check is skipped.
-        if (!empty($subject_requirements)) {// Assume eligible by default
-            foreach ($subject_requirements as $subject) {
-                if (!in_array($subject, $passed_subjects)) {
-                    $eligible = false; // If even one subject is missing, mark as ineligible
-                    break;
-                }
+            if (!empty($location)) {
+                $sql_courses .= " AND u.head_office LIKE ?";
             }
-        }
 
-        if ($eligible) {
-            $eligible_courses[] = $row;
-        }
-    }
-}
+            // Prepare statement to prevent SQL injection
+            $stmt = $conn->prepare($sql_courses);
+            if (!empty($location)) {
+                $location_param = "%$location%";
+                $stmt->bind_param("iis", $min_price, $max_price, $location_param);
+            } else {
+                $stmt->bind_param("ii", $min_price, $max_price);
+            }
+            $stmt->execute();
+            $result_courses = $stmt->get_result();
 
-// Count eligible courses and prepare pagination
-$total_courses = count($eligible_courses);
-$pass_var = htmlspecialchars(implode(", ", $passed_subjects));
-$importan = htmlspecialchars(implode(", ", $subject_requirements));
-$total_pages = ceil($total_courses / $limit);
-$paginated_courses = array_slice($eligible_courses, $offset, $limit);
+            $eligible_courses = [];
+            while ($row = $result_courses->fetch_assoc()) {
+                $eligible_courses[] = $row;
+            }
+            $stmt->close();
 
-// Display results
-if (!empty($paginated_courses)) {
-    echo "<h3>Courses That You're Eligible For</h3>";
-    echo "<table border='1' class='notifications-table'>";
-    echo "<thead><tr><th>Program Name</th><th>University</th></tr></thead><tbody>";
-    
-    foreach ($paginated_courses as $course) {
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($course['program_name']) . "</td>";
-        echo "<td>" . htmlspecialchars($course['university_name']) . "</td>";
-        // echo "<td>" . htmlspecialchars($course['specialSubject']) . "</td>"; 
-        echo "</tr>";
-    }
-    
-    echo "</tbody></table>";
-} else {
-    echo "<p>No eligible courses found.</p>";
-}
+            // Pagination setup
+            $total_courses = count($eligible_courses);
+            $limit = 10;
+            $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $offset = ($current_page - 1) * $limit;
+            $total_pages = ceil($total_courses / $limit);
 
-// Pagination UI
-if ($total_pages > 1) {
-    echo "<div class='pagination'>";
-    if ($current_page > 1) {
-        echo "<a href='?page=" . ($current_page - 1) . "'>&laquo; Prev</a>";
-    }
-    for ($page = 1; $page <= $total_pages; $page++) {
-        if ($page == $current_page) {
-            echo "<a href='?page=$page' class='active'>$page</a>";
-        } else {
-            echo "<a href='?page=$page'>$page</a>";
-        }
-    }
-    if ($current_page < $total_pages) {
-        echo "<a href='?page=" . ($current_page + 1) . "'>Next &raquo;</a>";
-    }
-    echo "</div>";
-}
+            // Slice courses for pagination
+            $paginated_courses = array_slice($eligible_courses, $offset, $limit);
 
-$conn->close();
-?>
+            // Display courses in table
+            if (!empty($paginated_courses)) {
+                echo "<table border='1' class='notifications-table' style='width:100%; border-collapse:collapse;'>";
+                echo "<thead><tr><th>University Name</th><th>Course Name</th><th>Admission Capacity</th></tr></thead><tbody>";
 
+                foreach ($paginated_courses as $course) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($course['university_name']) . "</td>";
+                    echo "<td>" . htmlspecialchars($course['program_name']) . "</td>";
+                    echo "<td>" . htmlspecialchars($course['admission_capacity'] ?? "N/A") . "</td>"; 
+                    echo "</tr>";
+                }
 
+                echo "</tbody></table>";
+
+                // Pagination UI
+                if ($total_pages > 1) {
+                    echo "<div class='pagination' style='margin-top: 10px;'>";
+                    if ($current_page > 1) {
+                        echo "<a href='?page=" . ($current_page - 1) . "' style='margin-right: 10px;'>&laquo; Prev</a>";
+                    }
+                    for ($page = 1; $page <= $total_pages; $page++) {
+                        echo "<a href='?page=$page' style='margin: 0 5px; " . ($page == $current_page ? "font-weight:bold;" : "") . "'>$page</a>";
+                    }
+                    if ($current_page < $total_pages) {
+                        echo "<a href='?page=" . ($current_page + 1) . "' style='margin-left: 10px;'>Next &raquo;</a>";
+                    }
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>No universities found for the given criteria.</p>";
+            }
+
+            $conn->close();
+            ?>
             </div>
 
             <div class="card ">

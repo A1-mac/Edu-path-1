@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $result .= "
                     <script>
                     document.getElementById('submitData').addEventListener('click', function() {
-                        var jsonData = " . json_encode($jsonData) . "; // Convert PHP array to JavaScript object
+                        var jsonData = " . json_encode($jsonData) . ";
 
                         fetch('submit_data.php', {
                             method: 'POST',
@@ -128,16 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         })
                         .then(response => response.text())
                         .then(data => {
-                            alert(data); // Show success or error message
-                            if (data.includes('Success')) { // Check if the response is successful
-                                // Update \check\ field to Old
-                                fetch('update_check_status.php', {
-                                    method: 'POST',
-                                    body: JSON.stringify({ user_id: " . $user_id . " })
-                                }).then(response => response.text())
-                                  .then(response => {
-                                      window.location.href = 'dash.php'; // Redirect to dashboard
-                                  });
+                            alert(data); 
+                            if (data.includes('Success')) {
+                                window.location.href = 'filter.php'; // Redirect to Course Filter
                             }
                         })
                         .catch(error => {
@@ -166,9 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NECTA Student Results</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body { 
+            display: block;
             font-family: Arial, sans-serif; 
             padding: 20px; 
             background-color: #e7ebef;
@@ -241,10 +234,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card appearance-settings">
     <form method="POST">
         <label for="index_number">Index Number (e.g., P0176/1234/2024):</label><br>
-        <input type="text" id="index_number" name="index_number" placeholder="Enter Index Number" required><br>
+        <input type="text" id="index_number" name="index_number" placeholder="Enter Index Number" required><br><br>
 
         <label for="exam_type">Exam Type (e.g., CSEE, ACSEE):</label><br>
-        <input type="text" id="exam_type" name="exam_type" placeholder="Enter Exam Type" required><br>
+        <input type="text" id="exam_type" name="exam_type" placeholder="Enter Exam Type" required><br><br>
 
         <button type="submit">Search</button>
     </form>

@@ -1,0 +1,186 @@
+no i mean that should look like this 
+
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Database connection
+$conn = new mysqli('localhost', 'mac', 'pass', 'Edupath_db');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// User ID (modify as needed)
+$user_id = $_SESSION['user_id'];
+
+// Fetch user's education level
+$sql_education = "SELECT exam_type FROM student_results WHERE user_id = $user_id";
+$result_education = $conn->query($sql_education);
+$user_education_level = "";
+
+if ($result_education->num_rows > 0) {
+    $row = $result_education->fetch_assoc();
+    $user_education_level = strtolower(trim($row['exam_type'])); // Convert to lowercase for comparison
+}
+
+// Fetch student's subject results
+$sql_results = "
+    SELECT ss.subject_name, ss.score
+    FROM student_subjects ss
+    INNER JOIN student_results s ON ss.student_id = s.id
+    WHERE s.user_id = $user_id
+";
+$result_set = $conn->query($sql_results);
+
+$subject_names = [
+    "GEO" => "Geography",
+    "CHEM" => "Chemistry",
+    "ENGL" => "English",
+    "ENG SC" => "English Science",
+    "B/MATH" => "Mathematics",
+    "PHY" => "Physics",
+    "BIO" => "Biology",
+    "HIST" => "History",
+    "KISW" => "Kiswahili",
+    "COMM" => "Commerce",
+    "BOOK" => "Bookkeeping",
+    "CIV" => "Civics",
+    "COMP" => "Computer Science",
+    "LIT ENG" => "Literature in English",
+    "FRENCH" => "French",
+    "ARABIC" => "Arabic",
+    "BAM" => "Basic Applied Mathematics",
+    "G/STUDIES" => "General Studies",
+    "HISTORY" => "History",
+    "GEOGR" => "Geography",
+    "COMP STUD" => "Computer Studies",
+];
+
+$pass_count = 0;
+$passed_subjects = [];
+$passing_grades = ['A', 'B', 'C'];
+
+if ($result_set->num_rows > 0) {
+    while ($row = $result_set->fetch_assoc()) {
+        // Check if the grade is passing
+        if (in_array($row['score'], $passing_grades)) {
+            $pass_count++;
+
+            // Get the full subject name from the array
+            $subject_code = trim($row['subject_name']); // Convert to uppercase for matching
+            if (array_key_exists($subject_code, $subject_names)) {
+                $full_subject_name = $subject_names[$subject_code];
+                $passed_subjects[] = $full_subject_name; // Add the full subject name to the list
+            } else {
+                // In case the subject code is not found in the mapping
+                $passed_subjects[] = "Unknown Subject ($subject_code)";
+            }
+        }
+    }
+}
+
+
+
+// Pagination setup
+$limit = 10;
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($current_page - 1) * $limit;
+
+// Fetch ALL courses that have data in total_pass, cetificate, and specialSubject
+// For total_pass, we check that it is not null or zero, and for cetificate and specialSubject, we ensure they are not empty.
+$sql_courses = "SELECT c.id, c.program_name, c.university_name, c.total_pass, c.cetificate, c.specialSubject
+                FROM courses c
+                WHERE c.total_pass IS NOT NULL 
+                  AND c.total_pass > 0 
+                  AND c.cetificate <> '' 
+                  AND c.specialSubject <> ''";
+$result_courses = $conn->query($sql_courses);
+
+$eligible_courses = [];
+
+if ($result_courses->num_rows > 0) {
+    while ($row = $result_courses->fetch_assoc()) {
+        $required_passes = intval($row['total_pass']);
+        $required_certificate = strtolower(trim($row['cetificate']));
+        
+        // Convert specialSubject string to an array, removing square brackets if present
+        $special_subject_raw = trim(str_replace(['[', ']'], '',($row['specialSubject'])));
+        $subject_requirements = !empty($special_subject_raw) ? array_map('trim', explode(',', $special_subject_raw)) : [];
+        
+        $eligible = true;
+
+        // Check total passes requirement
+        if ($pass_count < $required_passes) {
+            $eligible = false;
+        }
+
+        // Check education level against required certificate
+        if (!empty($required_certificate) && $user_education_level !== $required_certificate) {
+            $eligible = false;
+        }
+
+        // If there are required subjects, ensure the student passed them.
+        // If specialSubject is empty, this check is skipped.
+        if (!empty($subject_requirements)) {// Assume eligible by default
+            foreach ($subject_requirements as $subject) {
+                if (!in_array($subject, $passed_subjects)) {
+                    $eligible = false; // If even one subject is missing, mark as ineligible
+                    break;
+                }
+            }
+        }
+
+        if ($eligible) {
+            $eligible_courses[] = $row;
+        }
+    }
+}
+
+// Count eligible courses and prepare pagination
+$total_courses = count($eligible_courses);
+$pass_var = htmlspecialchars(implode(", ", $passed_subjects));
+$importan = htmlspecialchars(implode(", ", $subject_requirements));
+$total_pages = ceil($total_courses / $limit);
+$paginated_courses = array_slice($eligible_courses, $offset, $limit);
+
+// Display results
+if (!empty($paginated_courses)) {
+    echo "<h3>Courses That You're Eligible For</h3>";
+    echo "<table border='1' class='notifications-table'>";
+    echo "<thead><tr><th>Program Name</th><th>University</th></tr></thead><tbody>";
+    
+    foreach ($paginated_courses as $course) {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($course['program_name']) . "</td>";
+        echo "<td>" . htmlspecialchars($course['university_name']) . "</td>";
+        // echo "<td>" . htmlspecialchars($course['specialSubject']) . "</td>"; 
+        echo "</tr>";
+    }
+    
+    echo "</tbody></table>";
+} else {
+    echo "<p>No eligible courses found.</p>";
+}
+
+// Pagination UI
+if ($total_pages > 1) {
+    echo "<div class='pagination'>";
+    if ($current_page > 1) {
+        echo "<a href='?page=" . ($current_page - 1) . "'>&laquo; Prev</a>";
+    }
+    for ($page = 1; $page <= $total_pages; $page++) {
+        if ($page == $current_page) {
+            echo "<a href='?page=$page' class='active'>$page</a>";
+        } else {
+            echo "<a href='?page=$page'>$page</a>";
+        }
+    }
+    if ($current_page < $total_pages) {
+        echo "<a href='?page=" . ($current_page + 1) . "'>Next &raquo;</a>";
+    }
+    echo "</div>";
+}
+
+$conn->close();
+?>

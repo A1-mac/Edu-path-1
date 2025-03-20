@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .price-range input {
+            width: 48%;
+            display: inline-block;
+        }
+        button {
+            background-color: #28a745; 
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        h2{
+            margin-bottom: 5px;
+        }
+        .fade{
+            color: #5f5f5fc6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Filter Your Course</h2>
+        <i>The courses that you are eligible at are :</i> <?php  ?><br>
+        <i class="fade">You can filter by,</i>
+        <br><br>
+        <form action="search_results.php" method="POST">
+            <!-- Location (Now as Text Input) -->
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter preferred location...">
+            </div>
+
+            <!-- Price Range (Now in Tanzanian Shillings - TZS) -->
+            <div class="form-group price-range">
+                <label>Tuition Fee Range (TZS)</label><br>
+                <input type="number" id="min-price" name="min_price" min="0" placeholder="Min price (TZS)">
+                <input type="number" id="max-price" name="max_price" min="0" placeholder="Max price (TZS)">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Search Courses</button>
+
+        </form>
+    </div>
+
+</body>
+</html>
