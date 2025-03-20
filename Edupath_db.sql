@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 06, 2025 at 04:35 PM
+-- Generation Time: Mar 20, 2025 at 06:53 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -110,10 +110,10 @@ INSERT INTO `courses` (`id`, `university_name`, `program_name`, `admission_requi
 (12, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Human Resources Management', 'Holders of Basic Technician certificate (NTA Level 4) in Human\\nResource, Local Government Administration, Social work, Community\\nDevelopment, Business Management OR Advanced Certificate of\\nSecondary Education Examination (ACSEE) with at least one Principal\\npass and one Subsidiary in Principal subjects.', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '', '', ''),
 (13, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Information Communication\\nTechnology', 'Holders of Basic Technician Certificate (NTA Level 4) in Computing and\\nInformation Technology OR Advanced Certificate of Secondary\\nEducation (ACSEE) with at least one Principal pass and one Subsidiary\\nin Principal subjects', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '', '', ''),
 (14, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Law', 'Holders of advanced certificate of secondary', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '1', 'ACSEE', '[]'),
-(15, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Library Studies, Records Management\\nwith Ict', 'Holders of Basic Technician Certificate (NTA Level 4) in Records\\nManagement, Medical Records, Library and information studies OR\\nAdvanced Certificate of Secondary Education Examination (ACSEE)\\nwith at least one Principal pass and one Subsidiary in Principal\\nsubjects', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '', '', ''),
-(16, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Marketing Management', 'Holders of Basic Technician Certificate (NTA Level 4) in Marketing,\\nPublic Relation, Business Administration, Accounting and Finance,\\nEconomics OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects.', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '', '', ''),
-(17, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Procurement and Supply Chain\\nManagement', 'Holders of Basic Technician Certificate (NTA Level 4) in Procurement\\nand Supply, Logistics, Clearing and Forwarding, Purchasing and\\nInventory OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects.', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '', '', ''),
-(18, 'Catholic University of Health and Allied Sciences (CUHAS)', 'Diploma in Diagnostic Radiography', 'Holders of Certificate in Diagnostic Radiology with passes in science\\nsubjects including passes in Biology, Chemistry and Physics in\\nCertificate of Secondary Education Examination (CSEE)', 2, 120, 'Local Fee: TSH. 1,650,000/=', '2025-01-29 17:00:53', '', '', ''),
+(15, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Library Studies, Records Management\\nwith Ict', 'Holders of Basic Technician Certificate (NTA Level 4) in Records\\nManagement, Medical Records, Library and information studies OR\\nAdvanced Certificate of Secondary Education Examination (ACSEE)\\nwith at least one Principal pass and one Subsidiary in Principal\\nsubjects', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '2', 'ACSEE', '[]'),
+(16, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Marketing Management', 'Holders of Basic Technician Certificate (NTA Level 4) in Marketing,\\nPublic Relation, Business Administration, Accounting and Finance,\\nEconomics OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects.', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '2', 'ACSEE', '[]'),
+(17, 'Catholic University of Mbeya (CUoM), formerly CUCoM', 'Diploma in Procurement and Supply Chain\\nManagement', 'Holders of Basic Technician Certificate (NTA Level 4) in Procurement\\nand Supply, Logistics, Clearing and Forwarding, Purchasing and\\nInventory OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects.', 2, 200, 'Local Fee: TSH. 1,321,000/=', '2025-01-29 17:00:53', '2', 'ACSEE', '[]'),
+(18, 'Catholic University of Health and Allied Sciences (CUHAS)', 'Diploma in Diagnostic Radiography', 'Holders of Certificate in Diagnostic Radiology with passes in science\\nsubjects including passes in Biology, Chemistry and Physics in\\nCertificate of Secondary Education Examination (CSEE)', 2, 120, 'Local Fee: TSH. 1,650,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[Biology, Chemistry, Physics]'),
 (19, 'Dar es Salaam University College of Education (DUCE)', 'Ordinary Diploma in Educational Laboratory\\nScience Technology', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in Non-religious subjects including two\\npasses in Physics, chemistry, biology, Geography and Mathematics', 3, 50, 'Local Fee: TSH. 1,000,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[Physics, Chemistry, Biology, Geography, Mathematics]'),
 (20, 'Hubert Kairuki Memorial University (HK)', 'Ordinary Diploma in Social Work', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith At Least four (4) Passes in non-religious Subjects', 3, 100, 'Local Fee: TSH. 1,700,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[]'),
 (21, 'Jordan University College (JUCo)', 'Diploma in Law', 'Holders of Certificate in Law OR Holders of Advanced Certificate of\\nSecondary Education Examination (CSEE) with one Principal Pass and\\nOne Subsidiary in Principal subjects', 2, 80, 'Local Fee: TSH. 1,180,000/=', '2025-01-29 17:00:53', '1', 'ACSEE', '[]'),
@@ -130,7 +130,7 @@ INSERT INTO `courses` (`id`, `university_name`, `program_name`, `admission_requi
 (32, 'Jordan University College (JUCo)', 'Ordinary Diploma in Procurement and Supply\\nChain Management', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in non-religious subjects OR National\\nVocational Award (NVAIII) with a Certificate of Secondary Education\\nExamination(CSEE)', 3, 80, 'Local Fee: TSH. 1,200,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[]'),
 (33, 'Jordan University College (JUCo)', 'Ordinary Diploma in Psychology and Counselling', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in non-religious subjects', 3, 80, 'Local Fee: TSH. 1,200,000/=', '2025-01-29 17:00:53', '', '', ''),
 (34, 'Jordan University College (JUCo)', 'Ordinary Diploma in Records, Archives and\\nInformation Management', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in non-religious subjects OR National\\nVocational Award (NVA III) with a Certificate of Secondary Education\\nExamination (CSEE)', 3, 80, 'Local Fee: TSH. 1,200,000/=', '2025-01-29 17:00:53', '', '', ''),
-(35, 'Kampala International University in Tanzania (KIUT)', 'Diploma in Business Administration', 'Holders of Certificate in Business Administration, Accountancy,\\nEconomics, Banking and Finance, Marketing, Human Resource,\\nProcurement and Supplies, Law and Tax, Local Government\\nAdministration OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects', 2, 500, 'Local Fee: TSH. 1,160,000/=', '2025-01-29 17:00:53', '', '', ''),
+(35, 'Kampala International University in Tanzania (KIUT)', 'Diploma in Business Administration', 'Holders of Certificate in Business Administration, Accountancy,\\nEconomics, Banking and Finance, Marketing, Human Resource,\\nProcurement and Supplies, Law and Tax, Local Government\\nAdministration OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects', 2, 500, 'Local Fee: TSH. 1,160,000/=', '2025-01-29 17:00:53', '2', 'ACSEE', '[]'),
 (36, 'Kampala International University in Tanzania (KIUT)', 'Diploma in Computer Science', 'Holders of Certificate in Information Technology, Computer Science\\nInformation Technology, Business Information Technology OR Holder of\\nAdvanced Certificate of Secondary Education Examination (ACSEE)\\nwith one Principal pass and Subsidiary pass in principal subjects', 2, 800, 'Local Fee: TSH. 1,560,000/=', '2025-01-29 17:00:53', '', '', ''),
 (37, 'Kampala International University in Tanzania (KIUT)', 'Diploma in Guidance and Counseling', 'Holders of Certificate in Guidance and Counseling OR Holders of\\nAdvanced Certificate of Secondary Education Examination ( ACSEE) with at least one Principal Pass and one Subsidiary in Principal\\nsubjects', 2, 500, 'Local Fee: TSH. 1,160,000/=', '2025-01-29 17:00:53', '', '', ''),
 (38, 'Kampala International University in Tanzania (KIUT)', 'Diploma in Human Resource Management', 'Holders of Certificate in Business Administration, Accountancy, Human\\nResource, Supplies and Procurement OR Advanced Certificate of\\nSecondary Education Examination (ACSEE) with One Principal Pass and\\none Subsidiary in Principal subjects', 2, 500, 'Local Fee: TSH. 1,160,000/=', '2025-01-29 17:00:53', '', '', ''),
@@ -150,16 +150,16 @@ INSERT INTO `courses` (`id`, `university_name`, `program_name`, `admission_requi
 (52, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Architecture', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith Four (4) Passes in non-religious Subjects, three of which must be\\nMathematics, Physics, Chemistry/Geography', 3, 50, 'Local Fee: TSH. 900,000/=', '2025-01-29 17:00:53', '4', 'CSEE ', '[Mathematics, Physics, Chemistry, Geography]'),
 (53, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Bio Medical Equipment Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) Passes in non-religious Subjects including\\nPhysics,Chemistry and Basic Mathematics.', 3, 50, 'Local Fee: TSH. 1,000,000/=', '2025-01-29 17:00:53', '4', 'CSEE ', '[Physics, Chemistry, Mathematics]'),
 (54, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Business Administration', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in non-religious subjects', 3, 50, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '4', 'CSEE ', '[]'),
-(55, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Civil Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 50, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
-(56, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Computer Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics subjects.', 3, 50, 'Local Fee: TSH. 1,000,000/=', '2025-01-29 17:00:53', '', '', ''),
-(57, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Computer Science', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith Four (4) passes in non-religious subjects.', 3, 100, 'Local Fee: TSH. 1,500,000/=', '2025-01-29 17:00:53', '', '', ''),
-(58, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Electric and Electronics Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non- religious subjects including a pass in Basic Mathematics and Physics/Engineering Sciences and Chemistry', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
-(59, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Electrical Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non- religious subjects including a pass\\nin Basic Mathematics and Physics/Engineering Sciences', 3, 100, 'Local Fee: TSH. 1,400,000/=', '2025-01-29 17:00:53', '', '', ''),
+(55, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Civil Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 50, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[Physics, Chemistry, Mathematics]'),
+(56, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Computer Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics subjects.', 3, 50, 'Local Fee: TSH. 1,000,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[Physics, Chemistry, Mathematics]'),
+(57, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Computer Science', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith Four (4) passes in non-religious subjects.', 3, 100, 'Local Fee: TSH. 1,500,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[]'),
+(58, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Electric and Electronics Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non- religious subjects including a pass in Basic Mathematics and Physics/Engineering Sciences and Chemistry', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[Mathematics, Physics, Chemistry]'),
+(59, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Electrical Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non- religious subjects including a pass\\nin Basic Mathematics and Physics/Engineering Sciences', 3, 100, 'Local Fee: TSH. 1,400,000/=', '2025-01-29 17:00:53', '4', 'CSEE', '[Mathematics, Physics]'),
 (60, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Electronics and Telecomunication\\nEngineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including passes\\nin physics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
 (61, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Food Science and Technology', 'Certificate of Secondary Education Examination (CSEE) with at least\\nfour passes in non-religious subjects three of which must be in\\nMathematics, Physics/Chemistry or Biology. OR Certificate of\\nSecondary Education Examination (CSEE) from Technical Secondary\\nSchool with a pass in at least four passes in non-religious subjects\\nthree of which must be in Mathematics, Engineering\\nScience/Chemistry and Biology and one of the following subjects:\\nArchitectural Drafting/Building, Construction, Electrical Engineering,\\nScience/Electrical Drafting or Workshop Technology/Mechanical\\nDrafting. OR Certificate of Secondary Education Examination (CSEE)\\nwith at least four passes in non-religious subjects two of which must\\nbe in the following subjects Mathematics, Physics, Chemistry or\\nBiology with Trade Test Grade 1 or National Vocational Award (NVA)\\nLevel III issued by VETA.', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
 (62, 'Mbeya University of Science and Technology (MUST)', 'Diploma in High Way Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) Passes in non-religious Subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
 (63, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Information and Communication\\nTechnology', 'Holder of Certificate of Secondary Education with at least Four (4)\\npasses in non-religious subject including Basic Mathematics and\\nEnglish Language.', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
-(64, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Laboratory Sciences Technology', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 90,000/=', '2025-01-29 17:00:53', '', '', ''),
+(64, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Laboratory Sciences Technology', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 900,000/=', '2025-01-29 17:00:53', '', '', ''),
 (65, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Mechanical Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including passes\\nin physics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
 (66, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Mechatronics Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 600,000/=', '2025-01-29 17:00:53', '', '', ''),
 (67, 'Mbeya University of Science and Technology (MUST)', 'Diploma in Mining Engineering', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) passes in non-religious subjects including\\nPhysics, Chemistry and Basic Mathematics.', 3, 100, 'Local Fee: TSH. 1,400,000/=', '2025-01-29 17:00:53', '', '', ''),
@@ -184,8 +184,8 @@ INSERT INTO `courses` (`id`, `university_name`, `program_name`, `admission_requi
 (86, 'Muhimbili University of Health and Allied Sciences (MUHAS)', 'Diploma in Orthopaedic Technology (DOT) - KCMC', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Four (4) Passes in non-religious Subjects with at least\\nThree (3) Credits from Physics, Chemistry, Biology or Mathematics.\\nCredit pass in Engineering subjects is also acceptable as the third\\ncredit pass.', 3, 15, 'Local Fee: TSH. 777,400/=', '2025-01-29 17:00:53', '', '', ''),
 (87, 'Muhimbili University of Health and Allied Sciences (MUHAS)', 'Diploma in Pharmaceutical Sciences (DPS) -\\nEvening', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Fiver (5) Passes in non-religious subjects including Biology and Physics, and at least Three Credits in Mathematics,\\nChemistry and English.', 3, 35, 'Local Fee: TSH. 1,527,400/=', '2025-01-29 17:00:53', '', '', ''),
 (88, 'Muhimbili University of Health and Allied Sciences (MUHAS)', 'Diploma in Pharmaceutical Sciences (DPS) -\\nRegular', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least Five (5) Passes in non-religious Subjects including Biology\\nand Physics, and at least Three (3) Credits in Mathematics, Chemistry\\nand English.', 3, 35, 'Local Fee: TSH. 777,400/=', '2025-01-29 17:00:53', '', '', ''),
-(89, 'Muslim University of Morogoro (MUM)', 'Diploma in Islamic Banking and Finance', 'Holders of Certificate in Islamic Banking and Finance OR Advanced\\nCertificate of Secondary Education Examination (ACSEE) with at least\\none Principal pass and one Subsidiary in Principal subjects', 2, 100, 'Local Fee: TSH. 1,000,000/= ,\\nForeigner Fee: USD 1,000/=', '2025-01-29 17:00:53', '', '', ''),
-(90, 'Muslim University of Morogoro (MUM)', 'Diploma in Law and Shariah', 'Holders of Certificate in Law and Shariah OR Advanced Certificate of\\nSecondary Education Examination (ACSEE) with at least one Principal\\npass and one Subsidiary in Principal subjects', 2, 100, 'Local Fee: TSH. 1,000,000/= ,\\nForeigner Fee: USD 1,000/=', '2025-01-29 17:00:53', '', '', ''),
+(89, 'Muslim University of Morogoro (MUM)', 'Diploma in Islamic Banking and Finance', 'Holders of Certificate in Islamic Banking and Finance OR Advanced\\nCertificate of Secondary Education Examination (ACSEE) with at least\\none Principal pass and one Subsidiary in Principal subjects', 2, 100, 'Local Fee: TSH. 1,000,000/= ,\\nForeigner Fee: USD 1,000/=', '2025-01-29 17:00:53', '2', 'ACSEE', '[]'),
+(90, 'Muslim University of Morogoro (MUM)', 'Diploma in Law and Shariah', 'Holders of Certificate in Law and Shariah OR Advanced Certificate of\\nSecondary Education Examination (ACSEE) with at least one Principal\\npass and one Subsidiary in Principal subjects', 2, 100, 'Local Fee: TSH. 1,000,000/= ,\\nForeigner Fee: USD 1,000/=', '2025-01-29 17:00:53', '2', 'ACSEE', '[]'),
 (91, 'Muslim University of Morogoro (MUM)', 'Diploma in Procurement and Logistics\\nManagement', 'Holders of Certificate in Procurement and Supply,Logistics,Purchasing\\nand Inventory OR Advanced Certificate of Secondary Education\\nExamination (ACSEE) with at least one Principal pass and one\\nSubsidiary in Principal subjects', 2, 100, 'Local Fee: TSH. 1,000,000/= ,\\nForeigner Fee: USD 1,000/=', '2025-01-29 17:00:53', '', '', ''),
 (92, 'Muslim University of Morogoro (MUM)', 'Ordinary Diploma in Accountancy', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in non-religious subjects including Basic\\nMathematics OR National Vocational Award (NVA) Level III with a\\nCertificate of Secondary Education Examination (CSEE)', 3, 150, 'Local Fee: TSH. 920,000/= ,\\nForeigner Fee: USD 920/=', '2025-01-29 17:00:53', '', '', ''),
 (93, 'Muslim University of Morogoro (MUM)', 'Ordinary Diploma in Business Administration', 'Holders of Certificate of Secondary Education Examination (CSEE)\\nwith at least four (4) passes in non-religious subjects OR National Vocational Award (NVA)Level III with a Certificate of Secondary\\nEducation Examination (CSEE)', 3, 150, 'Local Fee: TSH. 920,000/= ,\\nForeigner Fee: USD 920/=', '2025-01-29 17:00:53', '', '', ''),
@@ -235,6 +235,29 @@ INSERT INTO `courses` (`id`, `university_name`, `program_name`, `admission_requi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `search_history`
+--
+
+CREATE TABLE `search_history` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `min_price` int(11) DEFAULT NULL,
+  `max_price` int(11) DEFAULT NULL,
+  `search_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `search_history`
+--
+
+INSERT INTO `search_history` (`id`, `user_id`, `location`, `min_price`, `max_price`, `search_time`) VALUES
+(1, 21, 'Dar es Salaam', 1000000, 3000000, '2025-03-11 09:55:52'),
+(2, 21, 'Dar es Salaam', 1000000, 3000000, '2025-03-11 10:03:28');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `security_questions`
 --
 
@@ -250,12 +273,8 @@ CREATE TABLE `security_questions` (
 --
 
 INSERT INTO `security_questions` (`id`, `user_id`, `question`, `answer_hash`) VALUES
-(1, 12, 'Where did your study for your diploma?', '$2y$10$uR0UUHZqdWAnjkajFMXXM.4a7HUllkcRtf6WefgU.anoHGy7ES2HS'),
-(2, 13, 'Where did your study for nursery?', '$2y$10$ikyyHXOor3QZvbvF.nd5.uQXpKNI6Jmbk7gaoAYOgKj45bvRfL9VW'),
-(3, 14, 'What is your favorite book?', '$2y$10$zb.bAzJCNXMr9yIS4I0j4eF6UdlSO.7eJuQsxLfCFx6iv6JJJ2U5K'),
-(4, 15, 'Where did your study for your diploma?', '$2y$10$XyTeUPLOYppbe8OSkKM6bOi3F2HM2Z31WFvQwDkOq5KuAap05hFt.'),
-(5, 16, 'Where did your study for nursery?', '$2y$10$Xn75DfBF5i7yPU/G0XO5euB8aElB5QFWgUDcLlhrKTpkBznV/4KqO'),
-(6, 17, 'Where did your study for your diploma?', '$2y$10$c6O2k1dW6/YDrO29EEkfhOG7O19jSunTf4U72TNrLZ2Y8xKRoiN1i');
+(9, 20, 'Where did your study for your diploma?', '$2y$10$evLXJLMzC89siyhq5.hbDOWfEei279uR1yHQa.IkwtL68FjphZ.P2'),
+(10, 21, 'Where did your study for your diploma?', '$2y$10$FhyFnyqB9CU9G7cTHg/nP.1sph4RAmXTZwTWeMGz4Oq7m.ZuHuoZ2');
 
 -- --------------------------------------------------------
 
@@ -265,32 +284,60 @@ INSERT INTO `security_questions` (`id`, `user_id`, `question`, `answer_hash`) VA
 
 CREATE TABLE `student_results` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `subject_name` varchar(255) NOT NULL,
-  `grade` char(2) NOT NULL
+  `examination_number` varchar(20) NOT NULL,
+  `year_of_exam` int(11) NOT NULL,
+  `exam_type` varchar(10) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `division` varchar(5) NOT NULL,
+  `points` varchar(10) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `student_results`
 --
 
-INSERT INTO `student_results` (`id`, `user_id`, `subject_name`, `grade`) VALUES
-(9, 16, 'History', 'B'),
-(10, 16, 'Geography', 'B'),
-(11, 16, 'Literature', 'A'),
-(12, 16, 'Economics', 'B'),
-(13, 16, 'Civic Education', 'A'),
-(14, 16, 'Religious Studies', 'B'),
-(15, 16, 'Fine Arts', 'B'),
-(16, 16, 'Music', 'B'),
-(17, 17, 'Physics', 'C'),
-(18, 17, 'Chemistry', 'B'),
-(19, 17, 'Biology', 'A'),
-(20, 17, 'Mathematics', 'B'),
-(21, 17, 'Geography', 'C'),
-(22, 17, 'English', 'C'),
-(23, 17, 'ICT', 'C'),
-(24, 17, 'Technical Drawing', 'D');
+INSERT INTO `student_results` (`id`, `examination_number`, `year_of_exam`, `exam_type`, `gender`, `division`, `points`, `user_id`) VALUES
+(3, 'S0189/0002', 2020, 'CSEE', 'Male', 'I', '7', 20),
+(4, 'S0189/0007', 2023, 'CSEE', 'Male', 'I', '11', 21);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_subjects`
+--
+
+CREATE TABLE `student_subjects` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `subject_name` varchar(50) NOT NULL,
+  `score` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `student_subjects`
+--
+
+INSERT INTO `student_subjects` (`id`, `student_id`, `subject_name`, `score`) VALUES
+(1, 3, 'CIV', 'B'),
+(2, 3, 'HIST', 'A'),
+(3, 3, 'GEO', 'A'),
+(4, 3, 'KISW', 'A'),
+(5, 3, 'ENGL', 'A'),
+(6, 3, 'PHY', 'C'),
+(7, 3, 'CHEM', 'A'),
+(8, 3, 'BIO', 'A'),
+(9, 3, 'COMP STUD', 'A'),
+(10, 3, 'B/MATH', 'B'),
+(11, 4, 'CIV', 'A'),
+(12, 4, 'HIST', 'B'),
+(13, 4, 'GEO', 'B'),
+(14, 4, 'KISW', 'C'),
+(15, 4, 'ENGL', 'B'),
+(16, 4, 'PHY', 'C'),
+(17, 4, 'CHEM', 'B'),
+(18, 4, 'BIO', 'A'),
+(19, 4, 'B/MATH', 'A');
 
 -- --------------------------------------------------------
 
@@ -392,55 +439,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `check`, `phone`, `profile_image`) VALUES
-(1, 'Fazal Benard', 'fazalben@gmail.com', 'e38ad214943daad1d64c102faec29de4afe9da3d', '2025-01-19 12:04:33', 'old', '0752374037', 'uploads/user_1_1737481221.jpeg'),
-(7, 'Moe Mussa', 'moemussa@gmail.com', '872c768dc29e1e1605cba4e2f647a9eda78a5fad', '2025-01-19 15:59:49', 'New', '0783456784', 'initial'),
-(8, 'Liam Neason', 'liam13@gmail.com', 'e38ad214943daad1d64c102faec29de4afe9da3d', '2025-01-19 19:22:37', 'Old', '0723456789', 'initial'),
-(9, 'sp', 'soptarpeter@gmail.com', '70ccd9007338d6d81dd3b6271621b9cf9a97ea00', '2025-01-21 14:18:07', 'New', '06975667', 'initial'),
-(10, 'mainly me', 'justme@gmail.com', 'e38ad214943daad1d64c102faec29de4afe9da3d', '2025-01-21 14:20:02', 'Old', '0723456789', 'uploads/user_10_1738000493.jpg'),
-(11, 'home me', 'homeme@gmail.com', 'e38ad214943daad1d64c102faec29de4afe9da3d', '2025-01-21 15:58:46', 'Old', '0755678234', 'initial'),
-(12, 'Justin Leon', 'leone@gmail.com', '456cf154c2c18c5fcf1b8f2495fb042012ba6a11', '2025-01-28 07:52:43', 'Old', '0783267890', 'uploads/user_12_1738240874.jpeg'),
-(13, 'soptar peter', 'killymost@gmail.com', '1f8f931e9a7d554c95b60c96793d34c12ce5b664', '2025-01-30 12:49:09', 'Old', '0692164825', 'uploads/user_13_1738241698.jpg'),
-(14, 'clemo doug', 'clemencesdouglas@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d', '2025-01-30 13:09:57', 'Old', '0655129878', 'uploads/user_14_1738243054.jpg'),
-(15, 'andrew', 'andrewgift0202@gmail.com', '9892cc869676e6491f24ebe253c5e7f001b81e82', '2025-01-30 13:44:20', 'Old', '0679644072', 'initial'),
-(16, 'Paul Paul', 'paulsmith@gmail.com', '6886efe133d17cf2ccfcdf17f0df8a1020c9af01', '2025-02-01 08:57:18', 'Old', '0789123987', 'uploads/user_16_1738404863.jpg'),
-(17, 'Abrah Babah', 'abbah@gmail.com', '70ccd9007338d6d81dd3b6271621b9cf9a97ea00', '2025-02-06 12:19:00', 'Old', '0789654123', 'initial');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_education`
---
-
-CREATE TABLE `user_education` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `education_level` enum('CSEE','ACSEE') DEFAULT NULL,
-  `division` int(11) DEFAULT NULL,
-  `preferred_combination_1` varchar(50) NOT NULL,
-  `preferred_combination_2` varchar(50) NOT NULL,
-  `preferred_combination_3` varchar(50) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `grade1` varchar(2) DEFAULT NULL,
-  `grade2` varchar(2) DEFAULT NULL,
-  `grade3` varchar(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_education`
---
-
-INSERT INTO `user_education` (`id`, `user_id`, `education_level`, `division`, `preferred_combination_1`, `preferred_combination_2`, `preferred_combination_3`, `created_at`, `grade1`, `grade2`, `grade3`) VALUES
-(1, 1, 'CSEE', 2, 'Chemistry', 'Biology', 'Geography', '2025-01-19 12:34:00', 'B', 'B+', 'A'),
-(2, 7, 'ACSEE', 1, 'Physics', 'Chemistry', 'Biology', '2025-01-19 16:00:24', NULL, NULL, NULL),
-(3, 8, 'CSEE', 1, 'Physics', 'Chemistry', 'Mathematics', '2025-01-19 20:18:52', NULL, NULL, NULL),
-(4, 10, 'CSEE', 2, 'Physics', 'Chemistry', 'Biology', '2025-01-21 14:20:43', 'C', 'A', 'D'),
-(5, 11, 'ACSEE', 2, 'Physics', 'Chemistry', 'Mathematics', '2025-01-21 15:59:53', 'B', 'D', 'C'),
-(6, 12, 'CSEE', 2, 'Biology', 'Chemistry', 'Geography', '2025-01-28 07:57:55', 'C', 'B', 'B'),
-(7, 13, 'ACSEE', 1, 'physics', 'mathematics', 'chemistry', '2025-01-30 12:50:52', 'B', 'B', 'B'),
-(8, 14, 'ACSEE', 4, 'physics', 'geography', 'mathematics', '2025-01-30 13:11:33', 'c', 'b', 'c'),
-(9, 15, 'CSEE', 3, 'physics', 'mathematics', 'chemistry', '2025-01-30 13:46:41', 'c', 'b', 'c'),
-(10, 16, 'CSEE', 2, 'History', 'Geography', 'Kiswahili', '2025-02-01 09:46:54', 'B', 'B', 'A'),
-(11, 17, 'CSEE', 2, 'Chemistry', 'Biology', 'Geography', '2025-02-06 12:20:32', 'C', 'B', 'A');
+(20, 'Miles Morales', 'Miles12@gmail.com', '64655e9d34d10a08db46c4379946cf71bf27bd61', '2025-03-01 11:55:37', 'Old', '0789123987', 'uploads/user_20_1740841956.png'),
+(21, 'Benin Benjamin', 'ben10@gmail.com', '64655e9d34d10a08db46c4379946cf71bf27bd61', '2025-03-11 09:36:22', 'Old', '0786143254', 'initial');
 
 --
 -- Indexes for dumped tables
@@ -461,6 +461,13 @@ ALTER TABLE `courses`
   ADD KEY `university_name` (`university_name`);
 
 --
+-- Indexes for table `search_history`
+--
+ALTER TABLE `search_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user` (`user_id`);
+
+--
 -- Indexes for table `security_questions`
 --
 ALTER TABLE `security_questions`
@@ -472,7 +479,14 @@ ALTER TABLE `security_questions`
 --
 ALTER TABLE `student_results`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `fk_user_id` (`user_id`);
+
+--
+-- Indexes for table `student_subjects`
+--
+ALTER TABLE `student_subjects`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `universities`
@@ -487,13 +501,6 @@ ALTER TABLE `universities`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
-
---
--- Indexes for table `user_education`
---
-ALTER TABLE `user_education`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -512,16 +519,28 @@ ALTER TABLE `courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
+-- AUTO_INCREMENT for table `search_history`
+--
+ALTER TABLE `search_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `security_questions`
 --
 ALTER TABLE `security_questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `student_results`
 --
 ALTER TABLE `student_results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `student_subjects`
+--
+ALTER TABLE `student_subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `universities`
@@ -533,13 +552,7 @@ ALTER TABLE `universities`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `user_education`
---
-ALTER TABLE `user_education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -558,6 +571,12 @@ ALTER TABLE `courses`
   ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`university_name`) REFERENCES `universities` (`name`);
 
 --
+-- Constraints for table `search_history`
+--
+ALTER TABLE `search_history`
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `security_questions`
 --
 ALTER TABLE `security_questions`
@@ -567,13 +586,13 @@ ALTER TABLE `security_questions`
 -- Constraints for table `student_results`
 --
 ALTER TABLE `student_results`
-  ADD CONSTRAINT `student_results_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `user_education`
+-- Constraints for table `student_subjects`
 --
-ALTER TABLE `user_education`
-  ADD CONSTRAINT `user_education_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `student_subjects`
+  ADD CONSTRAINT `student_subjects_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_results` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
